@@ -23,7 +23,13 @@ encoding='OneHotEncoding'
 
 # PREPROCESSING THE DATA
 preprocess = Preprocessing()
+
 df1,means = preprocess.preprocess_data(r"C:\Users\hp\Downloads\gungun_sensative.xlsx",task,encoding)
+# y = df1['PIH']
+print(df1['PIH'])
+
+# df1=df1.drop(['PIH'],axis=1)
+
 
 if task=="task2.1": 
     task_ = 'task2.1/'
@@ -39,6 +45,7 @@ elif task=="task2.3":
 
 else :
     task_ = 'task1/'
+    # X=df1.drop(['PIH'],axis=1)
     X_train1,y_train1,X_test,y_test,X_val,y_val= preprocess.split_data(df1,'PIH')
 
 X_train1,X_val,X_test = preprocess.scale_data(X_train1,X_val,X_test)
@@ -52,9 +59,10 @@ y_pred_proba_test = train.evaluate(classifier,X_test)
 y_predict_test,optimal_threshold = train.getPredictionsUsingThreshold(y_val,y_pred_proba_val,y_pred_proba_test)
 
 dict={f"model":classifier,"mean_value":means,f"threshold":optimal_threshold}    
-with open("model.pkl","wb") as mod:
+with open("model1.pkl","wb") as mod:
     import pickle
     pickle.dump(dict,mod)
+    print("Model saved successfully!")
 
 results = Metrices()
 result_dict=results.get_and_printResults(y_test,y_predict_test)

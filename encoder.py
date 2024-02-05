@@ -29,9 +29,7 @@ class DataEncoder():
         else:
             raise (Exception(self.encoding + "hasn't been implemented yet"))
         
-        with open("encoder.pkl","wb") as enc:
-            import pickle
-            pickle.dump(encoder,enc)
+        
             
         if encoding == 'CatBoostEncoding' or encoding == 'NormalizedCountEncoding' :
             results=encoder.fit_transform(data[cat_cols],data['PIH'])
@@ -63,5 +61,10 @@ class DataEncoder():
             combined_df = pd.concat([data,extra],axis=1)
      
         combined_df = combined_df.drop(cat_cols,axis=1)
+        
+        with open("encoder.pkl","wb") as enc:
+            import pickle
+            pickle.dump(encoder,enc)
+
         return combined_df
     

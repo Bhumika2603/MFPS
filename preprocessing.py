@@ -171,7 +171,7 @@ class Preprocessing():
     def encode_ev(self,data,cat_cols,encoder):
         extra=pd.DataFrame()
         for col in cat_cols:
-            results=encoder.fit_transform(data[[col]])
+            results=encoder.transform(data[[col]])
             encoded_df=pd.DataFrame(results.toarray(),columns=encoder.get_feature_names_out())
             extra=pd.concat([extra,encoded_df],axis=1)
         combined_df = pd.concat([data,extra],axis=1)
@@ -209,8 +209,12 @@ class Preprocessing():
 
 
     def split_data(self,data,pred_column):
-        X=data.loc[:,data.columns!=pred_column]
+        # X=data.loc[:,data.columns!=pred_column]
+
         y= data[pred_column]
+        X= data.drop(['PIH'],axis=1)
+
+
         X_train, X_test, y_train, y_test = train_test_split(X,y,random_state=42,test_size=0.1,train_size=0.9,
                                                         shuffle=True,stratify=data[pred_column])
         x1=X_train
