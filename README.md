@@ -45,8 +45,7 @@ These plots can be referred from [EDA_plots](./EDA_Plots)
   training . Therefore multiple differnt encoders including One Hot Encoder, Gap Encoder,Hash 
   Encoder and some others are used.
   
-- Scale Dataset : To ensure that no single feature dominates the distance calculations in an algorithm, 
- and to improve the performance of the algorithm, dataset is scaled before splitting the dataset.
+- Scaling the Dataset : To ensure that no single feature dominates the distance calculations in an algorithm, and to improve the performance of the algorithm, dataset is scaled before splitting the dataset.
 
 -Splitting the dataset : Dataset is splitted into 3 sets- training set, validation set, and test set int the ratio(%) 80 : 10: :10.
 
