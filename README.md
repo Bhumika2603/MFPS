@@ -67,7 +67,7 @@ Training the dataset includes Fitting data.
 
 Evaluating trained against for a test set and got sensitivity of 0.70 and specificity of 0.80 for xgb classifier with catboost encoding
 Also plotted all the important curves like Precison Curve and ROC Curve for all the classifiers and stored the results including accuracy ,sensitivity,specificity,prevalence,Classification Report,Confusion Matrix for all the classifiers and different encoding techniques.
-To check out results and plots:[Click Here]{./Results}
+To check out results and plots: [Click Here](./results)
 
 
  
