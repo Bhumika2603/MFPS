@@ -27,13 +27,13 @@ class Plot:
         save_path = algo_path+'/pr.jpeg'
         plt.savefig(save_path)
         
-
         
     def plot_Roc(self,model_name,y_train,y_val,y_test,y_pred_proba_train,y_pred_proba_val,y_pred_proba_test,algo_path):
         plt.figure(figsize=(8, 6))
+        print(y_pred_proba_train)
         fpr1, tpr1, thresh1 = roc_curve(y_train,y_pred_proba_train)
         fpr2, tpr2, thresh2 = roc_curve(y_val,y_pred_proba_val) 
-        fpr3, tpr3, thresh3= roc_curve(y_test,y_pred_proba_test)
+        fpr3, tpr3, thresh3 = roc_curve(y_test,y_pred_proba_test)
         auc_score1 = roc_auc_score(y_train,y_pred_proba_train)
         auc_score2 = roc_auc_score(y_val,y_pred_proba_val)
         auc_score3 = roc_auc_score(y_test,y_pred_proba_test)
@@ -51,8 +51,6 @@ class Plot:
         save_path = algo_path+'/roc.jpeg'
         plt.savefig(save_path)
         
-        
-
     def plot_cm(self,model_name,y_actual,y_predict_class,algo_path):
         ConfusionMatrixDisplay.from_predictions(y_actual,y_predict_class )
         plt.title(f'{model_name} Confusion matrix ')

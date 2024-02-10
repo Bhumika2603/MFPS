@@ -4,6 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from encoder import DataEncoder
 
+from features import features
+
 
 class Preprocessing():
     def __init__(self):
@@ -16,8 +18,10 @@ class Preprocessing():
         if task=="task1":
          df1 = df1.dropna(subset = ['PIH'])
          df1 = df1.reset_index().drop('index',axis=1)
-         df1 = self.dropnull(df1)
-         df1=df1.drop(['PIH Mngt ','MUAC'],axis=1)
+         df1 = df1[features]
+
+        #  df1 = self.dropnull(df1)
+        #  df1=df1.drop(['PIH Mngt ','MUAC'],axis=1)
          return df1
 
         elif task=='task2.1':
@@ -60,6 +64,7 @@ class Preprocessing():
     
     def preprocess_ev_data(self,path,mean_value,task):
         df1 = self.load_data(path,task)
+        df1_orignal = df1.copy()
         if task=="task1":
             df1=df1.drop(['PIH'],axis=1)
 
@@ -72,9 +77,10 @@ class Preprocessing():
         else:
              df1=df1.drop(['ANC4'],axis=1)   
        
+
         df1,num_cols,cat_cols = self.impute_ev(df1,mean_value,task)
         df1,cat_cols = self.process_date_colm(df1,cat_cols)
-        return df1,cat_cols
+        return df1,cat_cols,df1_orignal
 
 
     #DROPPING NULL COLUMNS
@@ -169,13 +175,11 @@ class Preprocessing():
         return data
     
     def encode_ev(self,data,cat_cols,encoder):
-        extra=pd.DataFrame()
-        for col in cat_cols:
-            results=encoder.transform(data[[col]])
-            encoded_df=pd.DataFrame(results.toarray(),columns=encoder.get_feature_names_out())
-            extra=pd.concat([extra,encoded_df],axis=1)
-        combined_df = pd.concat([data,extra],axis=1)
+        results = encoder.transform(data[cat_cols])
+        # print(results)
+        encoded_df=pd.DataFrame(results.toarray(),columns=encoder.get_feature_names_out())
 
+        combined_df=pd.concat([data,encoded_df],axis=1)
         combined_df = combined_df.drop(cat_cols,axis=1)
         return combined_df
         

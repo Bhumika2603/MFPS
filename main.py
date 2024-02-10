@@ -24,7 +24,7 @@ encoding='OneHotEncoding'
 # PREPROCESSING THE DATA
 preprocess = Preprocessing()
 
-df1,means = preprocess.preprocess_data(r"C:\Users\hp\Downloads\gungun_sensative.xlsx",task,encoding)
+df1,means = preprocess.preprocess_data("../gungun_sensative.xlsx",task,encoding)
 # y = df1['PIH']
 print(df1['PIH'])
 
@@ -48,7 +48,7 @@ else :
     # X=df1.drop(['PIH'],axis=1)
     X_train1,y_train1,X_test,y_test,X_val,y_val= preprocess.split_data(df1,'PIH')
 
-X_train1,X_val,X_test = preprocess.scale_data(X_train1,X_val,X_test)
+# X_train1,X_val,X_test = preprocess.scale_data(X_train1,X_val,X_test)
 algo_path=storing_model(base_dir,task_,algo)
 
 #Loading and training the model

@@ -28,8 +28,6 @@ class DataEncoder():
           
         else:
             raise (Exception(self.encoding + "hasn't been implemented yet"))
-        
-        
             
         if encoding == 'CatBoostEncoding' or encoding == 'NormalizedCountEncoding' :
             results=encoder.fit_transform(data[cat_cols],data['PIH'])
@@ -53,12 +51,10 @@ class DataEncoder():
             combined_df=pd.concat([data,encoded_df],axis=1)
             
         else:
-            extra=pd.DataFrame()
-            for col in cat_cols:
-                results=encoder.fit_transform(data[[col]])
-                encoded_df=pd.DataFrame(results.toarray(),columns=encoder.get_feature_names_out())
-                extra=pd.concat([extra,encoded_df],axis=1)
-            combined_df = pd.concat([data,extra],axis=1)
+            results = encoder.fit_transform(data[cat_cols])
+            # print(results)
+            encoded_df=pd.DataFrame(results.toarray(),columns=encoder.get_feature_names_out())
+            combined_df=pd.concat([data,encoded_df],axis=1)
      
         combined_df = combined_df.drop(cat_cols,axis=1)
         

@@ -20,11 +20,20 @@ class Train_model:
         return y_pred_proba_test
     
 
-    def getPredictionsUsingThreshold(self,y_actual,y_pred_prob_val,y_pred_prob_test):
+    def getPredictionsUsingThresholdPR(self,y_actual,y_pred_prob_val,y_pred_prob_test):
         precision, recall, thresholds = precision_recall_curve(y_actual,y_pred_prob_val)
         optimal_threshold = self.getThresholdFromPRcurve(precision,recall,thresholds)
         y_predict = self.getPredUsingOptimalThrehold(optimal_threshold,y_pred_prob_test)
+        return y_predict,optimal_threshold   
     
+    def getPredictionsUsingThreshold(self,y_actual,y_pred_prob_val,y_pred_prob_test):
+        y_pred_prob_val = list(y_pred_prob_val)
+        y_pred_prob_val.sort(reverse=True)
+        #picking at 35%
+        index = int(len(y_pred_prob_val)*35/100)
+        optimal_threshold = y_pred_prob_val[index]
+        y_predict = self.getPredUsingOptimalThrehold(optimal_threshold,y_pred_prob_test)
+
         return y_predict,optimal_threshold   
 
 
