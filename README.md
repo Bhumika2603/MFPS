@@ -21,7 +21,7 @@ Exploratory data analysis (EDA) is an approach to analyzing data sets to summari
 
 **Data**
 
-The pregnancy report dataset consists of 6262 data points, with each datapoint having 135 features.
+The pregnancy report dataset consists of 8694 data points, with each datapoint having 210 features.
 
 **Observations**
 
