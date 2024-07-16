@@ -24,7 +24,7 @@ encoding='OneHotEncoding'
 # PREPROCESSING THE DATA
 preprocess = Preprocessing()
 
-df1,means = preprocess.preprocess_data("../gungun_sensative.xlsx",task,encoding)
+df1,means = preprocess.preprocess_data(dataset_path)
 # y = df1['PIH']
 print(df1['PIH'])
 
